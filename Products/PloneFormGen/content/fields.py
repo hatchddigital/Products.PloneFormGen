@@ -8,6 +8,7 @@ from zope.contenttype import guess_content_type
 from ZPublisher.HTTPRequest import FileUpload
 
 from Products.Archetypes.public import *
+from Products.PloneFormGen.archetypes_widget import *
 from Products.Archetypes.utils import shasattr
 
 from Products.ATContentTypes.content.base import registerATCT

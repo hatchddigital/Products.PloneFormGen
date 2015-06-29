@@ -42,13 +42,13 @@ class QuickEditView(BrowserView):
     def addablePrioritizedFields(self):
         """Return a prioritized list of the addable fields in context"""
         priorityFields = {
-            'FormBooleanField': 1,
-            'FormDateField': 1,
-            'FormMultiSelectionField': 1,
-            'FormSelectionField': 1,
-            'FormStringField': 1,
-            'FormTextField': 1,
-            'FormIntegerField': 1,
+            'HatchdFormBooleanField': 1,
+            'HatchdFormDateField': 1,
+            'HatchdFormMultiSelectionField': 1,
+            'HatchdFormSelectionField': 1,
+            'HatchdFormStringField': 1,
+            'HatchdFormTextField': 1,
+            'HatchdFormIntegerField': 1,
         }
 
 
