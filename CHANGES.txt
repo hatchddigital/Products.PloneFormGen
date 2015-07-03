@@ -1,6 +1,50 @@
 Change History
 ==============
 
+1.7.17 (2015-06-15)
+-------------------
+
+- Check recipient name as well as address in mailing tests;
+  deal with commas in recipient name. Thanks, uschwarz.
+  [smcmahon]
+
+- Fix misleading test in exportimport.
+  [smcmahon]
+
+- Change edit.gif to edit.png in quickedit.pt and fg_savedata [ableeb]
+
+- fixed loading of widget javascripts in quickedit (#95) [reinhardt]
+
+- left placeholder only for fields where it makes sense [montypie]
+
+- Fixed MaxLengthValidator when string is Unicode
+  [gotcha]
+
+- Fixed loading of widget javascripts in quickedit (#95)
+  [reinhardt]
+
+- for save data adapter: handle the case in which the HTTP POST date time is added
+  after some data had already been submitted [tkimnguyen]
+
+- If the form is displayed in embedded mode, display thank you page
+  in embedded mode as well.
+  [naro]
+
+
+1.7.16 (2014-09-26)
+-------------------
+
+- Add support for the placeholder attribute for input fields.
+  Requires Plone >= 4.2, or Archetypes >= 1.7.14.
+  [thet]
+
+- Mailer adapter looks for data grid fields that contain new File
+  columns and includes those files as attachments [tkimnguyen]
+
+- Add/fix trove classifiers.
+  [smcmahon]
+
+
 1.7.15 (2014-07-25)
 -------------------
 
@@ -1447,7 +1491,7 @@ Change History
    exception if the user tries to injure themselves this way. (tracker
    #32, thanks, Rocky Burt)
 
- - Fixed a problem with the MaxLengthValdiator where sometimes an unset
+ - Fixed a problem with the MaxLengthValidator where sometimes an unset
    (by the user) widget.maxlength actually has an empty string as the
    value which would make the int(widget.maxlength) call fail (Rocky
    Burt).
