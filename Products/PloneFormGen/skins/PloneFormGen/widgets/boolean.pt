@@ -30,18 +30,19 @@
       <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
       <metal:fill fill-slot="widget_body_label_prefix"
                   tal:define="value python:test(not not value and value not in ('0', 'False'), 1, 0)">
-
-        <input class="noborder"
-               type="checkbox"
-               value="on"
-               tal:attributes="name string:${fieldName}:boolean;
-                               id fieldName;
-                               checked python:test(value, 'checked', None);"
-               />
-        <input type="hidden"
-               value=""
-               tal:attributes="name string:${fieldName}:boolean:default;"
-               />
+        <span>
+            <input class="noborder"
+                   type="checkbox"
+                   value="on"
+                   tal:attributes="name string:${fieldName}:boolean;
+                                   id fieldName;
+                                   checked python:test(value, 'checked', None);"
+                   />
+            <input type="hidden"
+                   value=""
+                   tal:attributes="name string:${fieldName}:boolean:default;"
+                   />
+        </span>
       </metal:fill>
       </metal:use>
     </metal:define>

@@ -13,6 +13,7 @@
     <metal:view_macro define-macro="view"
             tal:define="kssClassesView context/@@kss_field_decorator_view;
                         getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;">
+<!-- <h1>Textarea:view</h1> -->
         <span metal:define-macro="textarea-field-view"
             tal:define="kss_class python:getKssClasses(fieldName,
                               templateId='widgets/textarea', macro='textarea-field-view');
@@ -25,8 +26,8 @@
     </metal:view_macro>
 
     <metal:define define-macro="area_edit">
-      <tal:define
-          define="base python:hasattr(value, 'isUnit');
+        <tal:define
+            define="base python:hasattr(value, 'isUnit');
                   binary python:base and value.isBinary() or context.isBinary(fieldName);
                   content python: not not base and value.getRaw() or value;
                   content python: not binary and content or '';
@@ -35,18 +36,20 @@
                   maxlength widget/maxlength|nothing;
                   tcname string:textCounter_${fieldName};
                   keypress string:textCounter(this, '${tcname}', ${maxlength});">
-
-        <textarea
-            class="blurrable firstToFocus"
-            tal:attributes="name fieldName;
-                            id fieldName;
-                            cols widget/cols;
-                            rows widget/rows;
-                            placeholder widget/placeholder|nothing;
-                            onkeydown python:test(maxlength, keypress, None);
-                            onkeyup python:test(maxlength, keypress, None);"
-            tal:define="content python:not append_only and content or '';"
-            tal:content="content">content</textarea>
+            <textarea
+                class="blurrable firstToFocus"
+                tal:attributes="name fieldName;
+                                id fieldName;
+                                cols widget/cols;
+                                rows widget/rows;
+                                placeholder widget/placeholder|nothing;
+                                onkeydown python:test(maxlength, keypress, None);
+                                onkeyup python:test(maxlength, keypress, None);
+                                aria-describedby python:fieldName + '_error';
+                                aria-required python:'true' if field.required else None"
+                tal:define="content python:not append_only and content or '';"
+                tal:content="content">content
+            </textarea>
 
             <div tal:condition="maxlength"
                  i18n:translate="label_characters_remaining">
@@ -65,12 +68,12 @@
             </div>
 
             <fieldset tal:condition="append_only">
-              <legend i18n:translate=""
-                      tal:define="label widget/label"
-                      tal:content="string:HISTORY: ${label}">
-                label
-              </legend>
-              <span i18n:translate=""
+                <legend i18n:translate=""
+                    tal:define="label widget/label"
+                    tal:content="string:HISTORY: ${label}">
+                    label
+                </legend>
+                <span i18n:translate=""
                     tal:condition="python:(content_length &lt; 333)"
                     tal:content="accessor">content</span>
                     <textarea readonly="readonly" i18n:translate=""
@@ -127,20 +130,18 @@
     </metal:define>
 
     <metal:define define-macro="edit">
-      <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
-        <metal:fill fill-slot="widget_body">
-          <metal:block use-macro="context/widgets/textarea/macros/area_edit" />
-          <metal:block use-macro="context/widgets/textarea/macros/area_format" />
-        </metal:fill>
-      </metal:use>
+        <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
+            <metal:fill fill-slot="widget_body">
+                <metal:block use-macro="context/widgets/textarea/macros/area_edit" />
+                <metal:block use-macro="context/widgets/textarea/macros/area_format" />
+            </metal:fill>
+        </metal:use>
     </metal:define>
 
     <metal:define define-macro="search">
       <metal:use use-macro="context/widgets/field/macros/edit">
         <metal:fill fill-slot="widget_body">
-
           <metal:block use-macro="context/widgets/textarea/macros/area_edit" />
-
         </metal:fill>
       </metal:use>
     </metal:define>
