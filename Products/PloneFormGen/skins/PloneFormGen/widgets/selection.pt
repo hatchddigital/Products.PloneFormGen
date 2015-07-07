@@ -74,7 +74,7 @@
 
                         <metal:use metal:use-macro="context/widgets/field/macros/label" />
 
-                        <select aria-multiselectable="true"
+                        <select
                             tal:attributes="name fieldName;
                                             id fieldName;
                                             aria-label python:widget.Label(here);

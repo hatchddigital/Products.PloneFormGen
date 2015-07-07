@@ -3,114 +3,97 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="plone">
-  <head><title></title></head>
-  <body>
+    <head><title></title></head>
+    <body>
 
-    <!-- Selection Widgets -->
+        <!-- Selection Widgets -->
 
-    <metal:view_macro define-macro="view"
-                      tal:define="vocab python:field.Vocabulary(here);
-                                  value python:accessor();
-                                  display python:context.displayValue(vocab, value, widget);"
-                      tal:replace="structure display" />
+        <metal:view_macro define-macro="view"
+            tal:define="vocab python:field.Vocabulary(here);
+                        value python:accessor();
+                        display python:context.displayValue(vocab, value, widget);"
+            tal:replace="structure display" />
 
-    <metal:define define-macro="edit">
-    <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
-    <metal:fill fill-slot="widget_body"
-                tal:define="vocab python:field.Vocabulary(here);
-                            format python:test(widget.format, widget.format, 'select');
-                            selectionview context/@@at_selection_widget;
-                            selection python:selectionview.getSelected(vocab, value);
-                            vlen python: len(vocab)">
+        <metal:define define-macro="edit">
+            <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
+                <metal:fill fill-slot="widget_body"
+                    tal:define="vocab python:field.Vocabulary(here);
+                                format python:test(widget.format, widget.format, 'select');
+                                selectionview context/@@at_selection_widget;
+                                selection python:selectionview.getSelected(vocab, value);
+                                vlen python: len(vocab)">
 
-      <input type="hidden"
-             value=""
-             tal:condition="not:field/required|nothing"
-             tal:attributes="name string:$fieldName:default:list;" />
+                    <input type="hidden"
+                        value=""
+                        tal:condition="not:field/required|nothing"
+                        tal:attributes="name string:$fieldName:default:list;" />
 
-      <div tal:condition="python:format=='checkbox'"
-            tal:attributes="id fieldName;">
+                    <fieldset class="radiogroup"
+                        tal:condition="python:format=='checkbox'"
+                        tal:attributes="id fieldName;">
 
-        <div class="formQuestion label">
-            <span tal:replace="python:widget.Label(here)" 
-                  i18n:translate="" />
-            <span class="required"
-                  tal:condition="field/required"
-                  title="Required"
-                  i18n:attributes="title title_required;">&nbsp;</span>
-            <span class="formHelp"
-                 tal:define="description python:widget.Description(here)"
-                 tal:content="structure description"
-                 tal:attributes="id string:${fieldName}_help"
-                 i18n:translate="">
-              Help
-            </span>
-        </div>
+                        <legend
+                            tal:content="python:widget.Label(here)"
+                            tal:attributes="id python:fieldName + '_title'"/>
+                        <ul role="group"
+                            tal:attributes="aria-labelledby python:fieldName + '_title'">
 
-        <tal:item repeat="item vocab">
-          <div class="ArchetypesMultiSelectionValue" id=""
-               tal:attributes="id string:archetypes-value-${fieldName}_${repeat/item/number}">
-            <input class="blurrable"
-                   tal:attributes="type string:checkbox;
-                                   name string:$fieldName:list;
-                                   id string:${fieldName}_${repeat/item/number};
-                                   checked python:item in selection and 'checked' or None;
-                                   value nocall:item;"/>
-            <label tal:content="python:vocab.getValue(item)"
-                   i18n:translate=""
-                   tal:attributes="for string:${fieldName}_${repeat/item/number}" />
-          </div>
-        </tal:item>
+                            <li tal:repeat="item vocab">
+                                <input type="checkbox"
+                                    tal:attributes="name fieldName;
+                                                    id string:${fieldName}_${repeat/item/number};
+                                                    checked python:item in selection and 'checked' or None;
+                                                    aria-checked python:item in selection and 'true' or 'false';
+                                                    value item;"
+                                    />
+                                <label
+                                    tal:content="python:vocab.getValue(item)"
+                                    tal:attributes="for string:${fieldName}_${repeat/item/number}"
+                                    i18n:translate=""
+                                    />
+                            </li>
+                        </ul>
+                    </fieldset>
 
-      </div>
+                    <tal:useSelect
+                        tal:condition="python:format=='select'">
 
-      <tal:useSelect tal:condition="python:format=='select'">
-        <label class="formQuestion"
-               tal:attributes="for python:fieldName">
-            <span tal:replace="python:widget.Label(here)" 
-                  i18n:translate="" />
-            <span class="required"
-                  tal:condition="field/required"
-                  title="Required"
-                  i18n:attributes="title title_required;">&nbsp;</span>
-            <span class="formHelp"
-                 tal:define="description python:widget.Description(here)"
-                 tal:content="structure description"
-                 tal:attributes="id string:${fieldName}_help"
-                 i18n:translate="">
-              Help
-            </span>
-        </label>
-        <select multiple="multiple"
-                class="blurrable"
-                tal:attributes="name string:${fieldName}:list;
-                                id fieldName;
-                                size widget/size;">
-          <option selected=""
-                  tal:repeat="item vocab"
-                  tal:attributes="value nocall:item;
-                                  selected python:item in selection and 'checked' or None;"
-                  tal:content="python:vocab.getValue(item)"
-                  i18n:translate="" />
-        </select>
-      </tal:useSelect>
-    </metal:fill>
-    </metal:use>
-    </metal:define>
+                        <metal:use metal:use-macro="context/widgets/field/macros/label" />
 
-    <div metal:define-macro="search">
-      <div metal:use-macro="context/widgets/multiselection/macros/edit">
-      </div>
-    </div>
+                        <select multiple="multiple"
+                            class="blurrable"
+                            aria-multiselectable="true"
+                            tal:attributes="name string:${fieldName}:list;
+                                            id fieldName;
+                                            size widget/size;
+                                            aria-label python:widget.Label(here)">
+                            <option
+                                tal:repeat="item vocab"
+                                tal:attributes="value nocall:item;
+                                                selected python:item in selection and 'checked' or None;
+                                                aria-selected python:item in selection and 'true' or 'false';"
+                                tal:content="python:vocab.getValue(item)"
+                                i18n:translate=""
+                                />
+                        </select>
 
-    <metal:hidden_macro define-macro="hidden">
-      <input type="hidden"
-             name=""
-             value=""
-             tal:attributes="name fieldName;
-                             value value;"
-             tal:repeat="value accessor"/>
-    </metal:hidden_macro>
+                    </tal:useSelect>
+                </metal:fill>
+            </metal:use>
+        </metal:define>
 
-  </body>
+        <metal:define metal:define-macro="search">
+            <metal:use metal:use-macro="context/widgets/multiselection/macros/edit" />
+        </metal:define>
+
+        <metal:hidden_macro define-macro="hidden">
+            <input type="hidden"
+                name=""
+                value=""
+                tal:attributes="name fieldName;
+                                value value;"
+                tal:repeat="value accessor"/>
+        </metal:hidden_macro>
+
+    </body>
 </html>
