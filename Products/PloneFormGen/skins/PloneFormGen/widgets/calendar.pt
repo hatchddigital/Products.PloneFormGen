@@ -76,14 +76,14 @@
                                       inputname fieldName;
                                       formname string:search_form;
                                       inputvalue python:min(request.form.get(fieldName, None) or request.other.get(fieldName, None) or ('1975-05-26',)).strip();">
-                        <metal:box use-macro="here/calendar_macros/macros/calendarDatePickerBox|default" />
+                        <metal:box use-macro="context/widgets/calendar/macros/calendarDatePickerBox|default" />
                     </tal:from>
                     <tal:to define="id fieldName;
                                     inputname fieldName;
                                     minute_step widget/minute_step|python:5;
                                     formname string:search_form;
                                     inputvalue python:max(request.form.get(fieldName, None) or request.other.get(fieldName, None) or ('2975-05-26',)).strip();">
-                        <metal:box use-macro="here/calendar_macros/macros/calendarDatePickerBox|default" />
+                        <metal:box use-macro="context/widgets/calendar/macros/calendarDatePickerBox|default" />
                     </tal:to>
                     <input type="hidden"
                         name="field_usage"
