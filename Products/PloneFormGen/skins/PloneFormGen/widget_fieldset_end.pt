@@ -14,7 +14,9 @@
 
     <metal:define define-macro="edit" tal:define="quickEdit quickEdit | nothing">
       <tal:block tal:condition="not:quickEdit">
+          <span tal:replace="structure string:</ul>" />
           <span tal:replace="structure string:</fieldset>" />
+          <span tal:replace="structure string:</li>" />
       </tal:block>
       <div tal:condition="quickEdit" class="field fsend" tal:attributes="id string:archetypes-fieldname-${field/getName}">
         Fieldset End
