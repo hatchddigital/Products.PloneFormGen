@@ -72,7 +72,7 @@
                     value python:widget.postback and request.get(fieldName, value) or value;
                     portal python:context.portal_url.getPortalObject();
                     visCondition python:field.widget.testCondition(context.aq_inner.getParentNode(), portal, context);
-                    error_id python:errors.get(fieldName)">
+                    error_id python:errors.get(fieldName);">
         <tal:condition
             condition="python:visState == 'visible' and visCondition">
             <tal:block
@@ -99,28 +99,17 @@
                                         data-fieldname datafieldname">
 
                         <tal:block metal:define-slot="widget_body_label_prefix"></tal:block>
+
                         <tal:comment tal:condition="nothing">
                             Label insertion for the selection and multi-selection widgets is deferred to the widget, as they must
                             consider their format (checkbox, radio, select box ...) to correctly format the label to meet
                             accessibility standards.
                         </tal:comment>
+
                         <tal:ifLabel tal:condition="not: widget/render_own_label | nothing">
-                            <label tal:attributes="for python:fieldName;
-                                                   class python:('required' if field.required else '')  + ' formQuestion'">
-
-                                <tal:block tal:replace="python:widget.Label(here)"
-                                      i18n:translate="" />
-
-                                <span class="formHelp"
-                                    tal:define="description python:widget.Description(here)"
-                                    tal:content="structure description"
-                                    tal:attributes="id string:${fieldName}_help"
-                                    tal:condition="description"
-                                    i18n:translate="">
-                                  Help
-                                </span>
-                            </label>
+                            <metal:use metal:use-macro="context/widgets/field/macros/label" />
                         </tal:ifLabel>
+
                         <span tal:condition="field/workflowable | nothing"
                             tal:omit-tag="">
                             State:
@@ -165,6 +154,25 @@
              tal:attributes="name fieldName;
                              value value;" />
     </metal:hidden_macro>
+
+
+    <metal:define define-macro="label">
+        <label tal:attributes="for python:fieldName;
+                               class python:('required' if field.required else '')  + ' formQuestion'">
+
+            <tal:block tal:replace="python:widget.Label(here)"
+                  i18n:translate="" />
+
+            <span class="formHelp"
+                tal:define="description python:widget.Description(here)"
+                tal:content="structure description"
+                tal:attributes="id string:${fieldName}_help"
+                tal:condition="description"
+                i18n:translate="">
+              Help
+            </span>
+        </label>
+    </metal:define>
 
   </body>
 </html>
