@@ -3,43 +3,40 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="plone">
-  <head><title></title></head>
-  <body>
+    <head><title></title></head>
+    <body>
 
-    <!-- Lines Widgets -->
+        <!-- Lines Widgets -->
 
-    <metal:view_macro define-macro="view" tal:repeat="item accessor">
-      <span tal:content="item"/><br />
-    </metal:view_macro>
+        <metal:view_macro define-macro="view" tal:repeat="item accessor">
+            <span tal:content="item"/><br />
+        </metal:view_macro>
 
-    <div metal:define-macro="edit">
-      <div metal:use-macro="field_macro | context/widgets/field/macros/edit">
-          <div metal:fill-slot="widget_body">
-              <textarea tal:attributes="name string:$fieldName:lines;
+        <metal:define metal:define-macro="edit">
+            <metal:use metal:use-macro="field_macro | context/widgets/field/macros/edit">
+                <metal:fill metal:fill-slot="widget_body">
+                    <textarea
+                        tal:attributes="name string:$fieldName:lines;
                                         id fieldName;
                                         cols widget/cols;
-                                        rows widget/rows;"
-                        tal:content="python:value and '\n'.join(value) or ''"></textarea>
-          </div>
-      </div>
-    </div>
+                                        rows widget/rows;
+                                        aria-describedby python:fieldName + '_error' if errors.get(fieldName) else None;
+                                        aria-required python:'true' if field.required else None"
+                        tal:content="python:value and '\n'.join(value) or ''" />
+                </metal:fill>
+            </metal:use>
+        </metal:define>
 
-    <div metal:define-macro="search">
-      <div metal:use-macro="context/widgets/lines/macros/edit">
-      </div>
-    </div>
+        <metal:define metal:define-macro="search">
+          <tal:block metal:use-macro="context/widgets/lines/macros/edit" />
+        </metal:define>
 
-    <div metal:define-macro="hidden">
-      <input type="hidden"
-             name=""
-             value=""
-             tal:attributes="name string:${fieldName}:lines;
-                             value python:'\n'.join(value);" />
+        <metal:define metal:define-macro="hidden">
+            <input type="hidden"
+                tal:attributes="name string:${fieldName}:lines;
+                                value python:'\n'.join(value);" />
 
-    </div>
+        </metal:define>
 
-
-  </body>
-
+    </body>
 </html>
-
