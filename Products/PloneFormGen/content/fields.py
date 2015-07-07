@@ -119,10 +119,10 @@ class FGPasswordField(FGStringField):
         sizeField,
     ))
 
-    # 'hidden' isn't really useful for this field.
+    # attributes that are not really useful for Password field.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     # hide references & discussion
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
@@ -365,10 +365,10 @@ class FGBooleanField(BaseFormField):
            particular input, choose a validator below.
         """)
 
-    # 'hidden' isn't really useful for this field.
+    # attributes that are not really useful for Boolean field.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     # hide references & discussion
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
@@ -483,10 +483,10 @@ class FGDateField(BaseFormField):
         ),
 ))
 
-    # 'hidden' isn't really useful for this field.
+    # attributes that are not really useful for Date/Time field.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     # hide references & discussion
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
@@ -549,8 +549,8 @@ class FGDateField(BaseFormField):
             except ValueError:
                 pass
         else:
-                self.fgField.widget.ending_year = None
-                self.fgEndingYear = value
+            self.fgField.widget.ending_year = None
+            self.fgEndingYear = value
 
 
     security.declareProtected(ModifyPortalContent, 'setFgFutureYears')
@@ -711,11 +711,11 @@ class FGSelectionField(BaseFormField):
         ),
     ))
 
-    # 'hidden' isn't really useful for a selection field.
+    # attributes that are not really useful for a selection field.
     # Just use a hidden string field if you really need this.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     # hide references & discussion
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
@@ -811,8 +811,8 @@ class FGMultiSelectField(BaseFormField):
     # current Archetypes doesn't really support hidden for
     # multi-select. Use a lines field if you really need this
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     # hide references & discussion
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
@@ -1013,11 +1013,11 @@ class FGRichTextField(BaseFormField):
 
     schema = BaseFieldSchemaRichTextDefault.copy()
 
-    # 'hidden' isn't really useful for an RT field.
+    # attributes that are not really useful for an RT field.
     # Just use a hidden string field if you really need this.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     if HAS_MX_TIDY:
         schema = schema + Schema((
@@ -1201,10 +1201,10 @@ class FGFileField(BaseFormField):
 
     ))
 
-    # 'hidden' isn't really useful for a file field.
+    # attributes that are not really useful for a file field.
     del schema['hidden']
-    # 'serverSide' is not really useful for this field.
     del schema['serverSide']
+    del schema['placeholder']
 
     finalizeFieldSchema(schema, folderish=True, moveDiscussion=False)
 
@@ -1287,6 +1287,7 @@ class FGCaptchaField(FGStringField):
     # some attributes that don't make sense for a CAPTCHA field
     del schema['required']
     del schema['hidden']
+    del schema['placeholder']
     noview = {'view': 'invisible', 'edit': 'invisible'}
     schema['fgDefault'].widget.visible = noview
     schema['fgTDefault'].widget.visible = noview
@@ -1321,6 +1322,7 @@ class FGFieldsetStart(BaseFormField):
 
     schema =  BaseFieldSchema.copy()
     del schema['hidden']
+    del schema['placeholder']
     noview = {'view': 'invisible', 'edit': 'invisible'}
     schema['fgTEnabled'].widget.visible = noview
     schema['fgTDefault'].widget.visible = noview
@@ -1388,6 +1390,7 @@ class FGFieldsetEnd(BaseFormField):
     _at_rename_after_creation = False
 
     del schema['hidden']
+    del schema['placeholder']
     noview = {'view': 'invisible', 'edit': 'invisible'}
     schema['fgTEnabled'].widget.visible = noview
     schema['fgTDefault'].widget.visible = noview
@@ -1424,4 +1427,3 @@ class FGFieldsetEnd(BaseFormField):
         return True
 
 registerType(FGFieldsetEnd, PROJECTNAME)
-
