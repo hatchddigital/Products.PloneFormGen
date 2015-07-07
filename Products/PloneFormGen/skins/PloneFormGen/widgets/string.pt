@@ -36,7 +36,7 @@
                                    size widget/size;
                                    placeholder widget/placeholder|nothing;
                                    maxlength widget/maxlength;
-                                   aria-describedby python:fieldName + '_error';
+                                   aria-describedby python:fieldName + '_error' if errors.get(fieldName) else None;
                                    aria-required python:'true' if field.required else None"
                    />
         </metal:use>
