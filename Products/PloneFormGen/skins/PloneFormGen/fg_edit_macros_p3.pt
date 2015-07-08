@@ -74,7 +74,8 @@
     </div>
 
     <div metal:define-macro="body" class="pfg-form"
-         tal:attributes="class string:pfg-form formid-${here/getId}">
+         tal:attributes="class string:pfg-form formid-${here/getId}"
+         tal:define="inModal inModal | python:False">
       <form name="edit_form"
             method="post"
             enctype="multipart/form-data"
@@ -89,7 +90,6 @@
                             id string:fg-base-edit;
                             class python:'fgBaseEditForm '+ test(enable_unload_protection, 'enableUnloadProtection', '') + test(enable_auto_focus, ' enableAutoFocus', '') + test(path('allow_tabbing|nothing'), 'enableFormTabbing', '');
                             aria-label here/title">
-
           <metal:block define-slot="extra_top" />
 
           <div tal:replace="structure provider:archetypes.edit.beforefieldsets|nothing"
