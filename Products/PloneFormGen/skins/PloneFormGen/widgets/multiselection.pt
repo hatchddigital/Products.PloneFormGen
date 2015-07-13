@@ -35,7 +35,7 @@
                             <metal:use_label use-macro="context/widgets/multiselection/macros/checkbox_list" />
                         </div>
 
-                        <fieldset class="radiogroup"
+                        <fieldset
                             tal:condition="not:inModal"
                             tal:attributes="id fieldName;">
 
