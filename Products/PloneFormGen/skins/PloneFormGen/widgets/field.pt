@@ -88,7 +88,6 @@
 
                 <div tal:omit-tag="not:inModal"
                     tal:attributes="class classes;
-                                    id id;
                                     data-uid datauid;
                                     data-fieldname datafieldname">
                     <li tal:omit-tag="inModal"
