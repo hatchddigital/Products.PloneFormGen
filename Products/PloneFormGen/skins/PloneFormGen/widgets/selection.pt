@@ -41,34 +41,23 @@
                                         selection python:selectionview.getSelected(vocab, value);
                                         format python:widget.format">
 
-                    <fieldset class="radiogroup"
-                        tal:condition="python:(vlen &lt; 4 and format == 'flex') or (format == 'radio')"
-                        tal:attributes="id fieldName;">
 
-                        <!-- Radio when the vocab is short < 4 -->
+                    <tal:block tal:condition="python:(vlen &lt; 4 and format == 'flex') or (format == 'radio')">
+                        <div tal:condition="inModal"
+                            tal:attributes="id fieldName;">
+                            <metal:use_label use-macro="context/widgets/field/macros/label" />
+                            <metal:use_label use-macro="context/widgets/selection/macros/radio_list" />
+                        </div>
 
-                        <legend
-                            tal:content="python:widget.Label(here)"
-                            tal:attributes="id python:fieldName + '_title'"/>
-                        <ul role="radiogroup"
-                            tal:attributes="aria-labelledby python:fieldName + '_title'">
-
-                            <li tal:repeat="item vocab">
-                                <input type="radio"
-                                    tal:attributes="name fieldName;
-                                                    id string:${fieldName}_${repeat/item/number};
-                                                    checked python:item in selection and 'checked' or None;
-                                                    aria-checked python:item in selection and 'true' or 'false';
-                                                    value item;"
-                                    />
-                                <label
-                                    tal:content="python:vocab.getValue(item)"
-                                    tal:attributes="for string:${fieldName}_${repeat/item/number}"
-                                    i18n:translate=""
-                                    />
-                            </li>
-                        </ul>
-                    </fieldset>
+                        <fieldset class="radiogroup"
+                            tal:condition="not:inModal"
+                            tal:attributes="id fieldName;">
+                            <legend
+                                tal:content="python:widget.Label(here)"
+                                tal:attributes="id python:fieldName + '_title'" />
+                            <metal:use_label use-macro="context/widgets/selection/macros/radio_list" />
+                        </fieldset>
+                    </tal:block>
 
                     <tal:longVocab condition="python:(vlen >= 4 and format == 'flex') or (format in ('select', 'pulldown'))">
 
@@ -100,6 +89,28 @@
         <div metal:define-macro="search">
             <div metal:use-macro="context/widgets/selection/macros/edit" />
         </div>
+
+
+        <metal:define define-macro="radio_list">
+            <ul role="radiogroup"
+                tal:attributes="aria-labelledby python:fieldName + '_title'">
+
+                <li tal:repeat="item vocab">
+                    <input type="radio"
+                        tal:attributes="name fieldName;
+                                        id string:${fieldName}_${repeat/item/number};
+                                        checked python:item in selection and 'checked' or None;
+                                        aria-checked python:item in selection and 'true' or 'false';
+                                        value item;"
+                        />
+                    <label
+                        tal:content="python:vocab.getValue(item)"
+                        tal:attributes="for string:${fieldName}_${repeat/item/number}"
+                        i18n:translate=""
+                        />
+                </li>
+            </ul>
+        </metal:define>
 
     </body>
 
