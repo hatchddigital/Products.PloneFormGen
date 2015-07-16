@@ -43,6 +43,7 @@
                                 tal:content="python:widget.Label(here)"
                                 tal:attributes="id python:fieldName + '_title';
                                                 class python:'required' if field.required else None" />
+                            <metal:use metal:use-macro="context/widgets/field/macros/help" />
                             <metal:use_label use-macro="context/widgets/multiselection/macros/checkbox_list" />
                         </fieldset>
                     </tal:block>

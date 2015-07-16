@@ -162,15 +162,19 @@
             <tal:block tal:replace="python:widget.Label(here)"
                   i18n:translate="" />
 
-            <span class="formHelp"
-                tal:define="description python:widget.Description(here)"
-                tal:content="structure description"
-                tal:attributes="id string:${fieldName}_help"
-                tal:condition="description"
-                i18n:translate="">
-              Help
-            </span>
+            <metal:use metal:use-macro="context/widgets/field/macros/help" />
         </label>
+    </metal:define>
+
+    <metal:define define-macro="help">
+        <span class="formHelp"
+            tal:define="description python:widget.Description(here)"
+            tal:content="structure description"
+            tal:attributes="id string:${fieldName}_help"
+            tal:condition="description"
+            i18n:translate="">
+          Help
+        </span>
     </metal:define>
 
   </body>
