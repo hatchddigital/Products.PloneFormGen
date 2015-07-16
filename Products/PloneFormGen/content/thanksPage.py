@@ -32,7 +32,7 @@ ThanksPageSchema = ATContentTypeSchema.copy() + Schema((
     BooleanField('showAll',
         required=0,
         searchable=0,
-        default='1',
+        default='0',
         widget=BooleanWidget(
             label=_(u'label_showallfields_text', default=u"Show All Fields"),
             description=_(u'help_showallfields_text', default=u"""
