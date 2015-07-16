@@ -54,7 +54,8 @@
                             tal:attributes="id fieldName;">
                             <legend
                                 tal:content="python:widget.Label(here)"
-                                tal:attributes="id python:fieldName + '_title'" />
+                                tal:attributes="id python:fieldName + '_title';
+                                                class python:'required' if field.required else None" />
                             <metal:use_label use-macro="context/widgets/selection/macros/radio_list" />
                         </fieldset>
                     </tal:block>
