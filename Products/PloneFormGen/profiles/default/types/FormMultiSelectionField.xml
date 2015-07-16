@@ -3,7 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
    i18n:domain="ploneformgen">
- <property name="title" i18n:translate="Multiple Select/Checkbox Field">Multiple Select/Checkbox Field</property>
+ <property name="title" i18n:translate="Checkbox/Multiple Select Field">Checkbox/Multiple Select Field</property>
  <property
     name="description" i18n:translate="Multiple selection field (select with multiple or check boxes)">Multiple selection field (select with multiple or check boxes)</property>
  <property name="content_icon">MultipleListField.gif</property>
