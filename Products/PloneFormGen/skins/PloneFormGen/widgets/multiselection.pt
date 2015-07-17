@@ -40,9 +40,10 @@
                             tal:attributes="id fieldName;">
 
                             <legend
-                                tal:content="python:widget.Label(here)"
                                 tal:attributes="id python:fieldName + '_title';
-                                                class python:'required' if field.required else None" />
+                                                class python:'required' if field.required else None">
+                                ${python:widget.Label(here)}
+                            </legend>
                             <metal:use metal:use-macro="context/widgets/field/macros/help" />
                             <metal:use_label use-macro="context/widgets/multiselection/macros/checkbox_list" />
                         </fieldset>
