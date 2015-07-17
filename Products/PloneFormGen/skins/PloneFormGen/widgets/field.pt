@@ -156,12 +156,8 @@
 
 
     <metal:define define-macro="label">
-        <label tal:attributes="for python:fieldName;
-                               class python:('required' if field.required else '')  + ' formQuestion'">
-
-            <tal:block tal:replace="python:widget.Label(here)"
-                  i18n:translate="" />
-
+        <label tal:attributes="for python:fieldName;">
+            <span tal:attributes="class python:('required' if field.required else '')  + ' formQuestion'" tal:content="python:widget.Label(here)"/>
             <metal:use metal:use-macro="context/widgets/field/macros/help" />
         </label>
     </metal:define>

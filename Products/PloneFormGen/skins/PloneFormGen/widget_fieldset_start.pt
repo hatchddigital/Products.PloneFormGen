@@ -18,15 +18,10 @@
         <tal:block tal:condition="not:quickEdit">
           <span tal:replace="structure python:'<li role=\x22presentation\x22><fieldset class=\x22PFGFieldsetWidget\x22 id=\x22%s\x22>' % fid" />
           <tal:block condition="widget/show_legend | nothing">
-              <span tal:replace="structure python:'<legend for=\x22%s\x22>' % fid" />
+              <span tal:replace="structure python:'<legend for=\x22%s\x22><span>' % fid" />
               <span tal:replace="python:widget.Label(here)" />
-              <span class="formHelp"
-                   tal:define="description python:widget.Description(here)"
-                   tal:content="structure description"
-                   tal:attributes="id string:${fieldName}_help"
-                   i18n:translate="">
-                Help
-              </span>
+              <span tal:replace="structure python:'</span>'" />
+              <metal:use metal:use-macro="context/widgets/field/macros/help" />
               <span tal:replace="structure string:</legend>" />
               <span tal:replace="structure python:'<ul class=\x22form-fields\x22>'" />
           </tal:block>

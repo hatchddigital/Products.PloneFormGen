@@ -52,12 +52,11 @@
                         <fieldset class="radiogroup"
                             tal:condition="not:inModal"
                             tal:attributes="id fieldName;">
-                            <legend
-                                tal:attributes="id python:fieldName + '_title';
-                                                class python:'required' if field.required else None">
-                                ${python:widget.Label(here)}
+                            <legend tal:attributes="id python:fieldName + '_title';">
+                                <span tal:attributes="class python:'required' if field.required else None" tal:content="python:widget.Label(here)"/>
+                                <metal:use metal:use-macro="context/widgets/field/macros/help" />
                             </legend>
-                            <metal:use metal:use-macro="context/widgets/field/macros/help" />
+
                             <metal:use_label use-macro="context/widgets/selection/macros/radio_list" />
                         </fieldset>
                     </tal:block>
