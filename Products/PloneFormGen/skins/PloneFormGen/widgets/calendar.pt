@@ -36,16 +36,9 @@
                 <metal:fill fill-slot="widget_body">
 
                     <fieldset class="radiogroup">
-                        <legend tal:attributes="class python:'required' if field.required else None">
-                            <tal:block tal:replace="python:widget.Label(here)" />
-
-                            <span class="formHelp"
-                                tal:define="description python:widget.Description(here)"
-                                tal:content="structure description"
-                                tal:attributes="id string:${fieldName}_help"
-                                i18n:translate="">
-                                Help
-                            </span>
+                        <legend>
+                            <span tal:attributes="class python:'required' if field.required else None" tal:content="python:widget.Label(here)"/>
+                            <metal:use metal:use-macro="context/widgets/field/macros/help" />
                         </legend>
 
 
