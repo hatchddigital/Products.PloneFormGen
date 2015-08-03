@@ -26,21 +26,16 @@
   <element value="FormLinesField"/>
   <element value="FormIntegerField"/>
   <element value="FormBooleanField"/>
-  <element value="FormPasswordField"/>
   <element value="FormFixedPointField"/>
   <element value="FormStringField"/>
   <element value="FormTextField"/>
-  <element value="FormRichTextField"/>
-  <element value="FormRichLabelField"/>
   <element value="FormFileField"/>
-  <element value="FormLikertField"/>
   <element value="FormSaveDataAdapter"/>
   <element value="FormMailerAdapter"/>
   <element value="FormCustomScriptAdapter"/>
   <element value="FormThanksPage"/>
   <element value="FieldsetFolder"/>
   <element value="Document"/>
-  <element value="Image"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">fg_base_view_p3</property>
