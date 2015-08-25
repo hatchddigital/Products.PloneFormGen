@@ -18,12 +18,13 @@ DEFAULT_MAILTEMPLATE_BODY = \
 
   <body>
     <p tal:content="here/getBody_pre | nothing" />
-    <dl>
+    <table>
         <tal:block repeat="field options/wrappedFields | nothing">
-            <dt tal:content="field/fgField/widget/label" />
-            <dd tal:content="structure python:field.htmlValue(request)" />
+            <tr><td><strong tal:content="field/fgField/widget/label" /></td></tr>
+            <tr><td tal:content="structure python:field.htmlValue(request)" /></tr>
+            <tr><td>&nbsp;</td></tr>
         </tal:block>
-    </dl>
+    </table>
     <p tal:content="here/getBody_post | nothing" />
     <pre tal:content="here/getBody_footer | nothing" />
   </body>
